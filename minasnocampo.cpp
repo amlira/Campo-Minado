@@ -2,6 +2,24 @@
 #define MAX 100
 using namespace std;
 
+void imprimir(char v[MAX][MAX]) {
+    for (int i=1; i<=8; i++){
+        cout<<i<<" ";
+        for (int j=1; j<=8; j++){
+            cout<<v[i][j];
+        }
+        cout<<endl;
+    }
+}
+
+void letras (char &c) {
+    if (96<c && c<123) {
+        for(int i=0; i<256; i++) {
+            c-=32;
+        }
+    }
+}
+
 int main (){
     char mina[MAX][MAX], minabomba[MAX][MAX], comando;
 
@@ -12,17 +30,11 @@ int main (){
            mina[i][j]='.';
         }
     }
-    for (int i=1; i<=8; i++){
-        cout<<i<<" ";
-        for (int j=1; j<=8; j++){
-            cout<<mina[i][j];
-        }
-        cout<<endl;
-    }
+    imprimir(mina);
     cout<<endl;
     cout<<endl;
-    //Criar contador de minas que foram marcadas;
-    do{
+
+    while(comando!='S' || comando!='s'){
       cout<<endl;
 
       cout<<"D - - - > Descobrir o quadrado (colocar as coordenadas)"<<endl;
@@ -35,14 +47,15 @@ int main (){
 
       cout<<"Insira o comando ";
       cin>>comando;
+      letra(comando);
 
       if (comando!='S'){
       //coordenadas
       cin>>x>>y;
       cout<<endl;
       }
-      /*else{
-      //acabar o jogo;
+      /*else if (comando=='S' ||comando=='s') {
+        break;
       }*/
 
     for (int i=1; i<=8; i++){
@@ -68,15 +81,9 @@ int main (){
 
     cout<<endl;
 
-    for (int i=1; i<=8; i++){
-        cout<<i<<" ";
-        for (int j=1; j<=8; j++){
-            cout<<mina[i][j];
-        }
-        cout<<endl;
-    }
+    imprimir(mina);
 
-}while(comando!='S' || comando!='s');
+}//while(comando!='S' || comando!='s');
 
 
    return 0;
