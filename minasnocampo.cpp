@@ -1,4 +1,6 @@
 #include<iostream>
+#include <cstdlib>
+#include <ctime>
 #define MAX 100
 using namespace std;
 
@@ -23,68 +25,78 @@ void letras (char &c) {
 int main (){
     char mina[MAX][MAX], minabomba[MAX][MAX], comando;
 
-    int x, y, contM=0;
+    int x, y, c, l, contM=10, aux=0, contNum=0, contBomba=1;
 
     for (int i=1; i<=8; i++){
         for (int j=1; j<=8; j++){
-           mina[i][j]='.';
+            minabomba[i][j]='.';
+            mina[i][j]='.';
         }
     }
-    imprimir(mina);
-    cout<<endl;
-    cout<<endl;
 
-    while(comando!='S' || comando!='s'){
-      cout<<endl;
+    srand(time(NULL));
 
-      cout<<"D - - - > Descobrir o quadrado (colocar as coordenadas)"<<endl;
-      cout<<"M - - - > Marcar mina"<<endl;
-      cout<<"T - - - > Talvez mina;"<<endl;
-      cout<<"L - - - > Limpar marcação"<<endl;
-      cout<<"S - - - > Sair do jogo"<<endl;
+    while (contBomba <= 10) {
+        l=1+rand()%8;
+        c=1+rand()%8;
+        if (minabomba[l][c] != '*') {
+            minabomba[l][c]= '*';
+            contBomba++;
+        }
+    }
 
-      cout<<endl;
+    imprimir(minabomba);
+    cout<<"\n"<<"\n"<<endl;
 
-      cout<<"Insira o comando ";
-      cin>>comando;
-      letra(comando);
+    while(aux!=1){
 
-      if (comando!='S'){
-      //coordenadas
-      cin>>x>>y;
-      cout<<endl;
-      }
-      /*else if (comando=='S' ||comando=='s') {
-        break;
-      }*/
+        imprimir(mina);
+        cout<<"\n"<<"\n"<<endl;
 
-    for (int i=1; i<=8; i++){
-        for (int j=1; j<=8; j++){
-            switch (comando){
-            case 'D':
-                mina[x][y];
-                break;
-            case 'M':
-                mina[x][y]='M';
-                contM++;
-                break;
-            case 'T':
-                mina[x][y]='?';
-                break;
-            case 'L':
-                mina[x][y]='.';
-                contM--;
-                break;
+        cout<<"Minas a marcar: "<<contM<<endl;
+        cout<<"D - - - > Descobrir o quadrado (colocar as coordenadas)"<<endl;
+        cout<<"M - - - > Marcar mina"<<endl;
+        cout<<"T - - - > Talvez mina;"<<endl;
+        cout<<"L - - - > Limpar marcação"<<endl;
+        cout<<"S - - - > Sair do jogo"<<endl;
+
+        cout<<endl;
+
+        cout<<"Insira o comando: ";
+        cin>>comando;
+        letras(comando);
+
+        if (comando!='S'){
+            cout<<"Insira as coordenadas: ";
+            cin>>x>>y;
+        }
+        cout<<"\n"<<"\n"<<endl;
+
+        for (int i=1; i<=8; i++){
+            for (int j=1; j<=8; j++){
+                switch (comando){
+                case 'D':
+                    mina[x][y];
+                    break;
+                case 'M':
+                    mina[x][y]='M';
+                    contM--;
+                    break;
+                case 'T':
+                    mina[x][y]='?';
+                    break;
+                case 'L':
+                    mina[x][y]='.';
+                    contM++;
+                    break;
+                case 'S':
+                    aux=1;
+                }
             }
         }
+
     }
 
-    cout<<endl;
 
-    imprimir(mina);
-
-}//while(comando!='S' || comando!='s');
-
-
-   return 0;
+    return 0;
 }
