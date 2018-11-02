@@ -38,7 +38,7 @@ void letras (char &c) {
 //funcao para transformar int em char
 char inTChar(int i) {
     switch (i) {
-           case 0: return '0';
+           case 0: return '_';
            case 1: return '1';
            case 2: return '2';
            case 3: return '3';
@@ -47,6 +47,7 @@ char inTChar(int i) {
            case 6: return '6';
            case 7: return '7';
            case 8: return '8';
+          // case 9: return '*'; ESSA LINHA PODE SUBSTITUIR O ELSE IF NA FUNCAO IMPRIMI BOMBAS, ACHO QUE FICA MELHOR
     }
 }
 
@@ -54,7 +55,10 @@ char inTChar(int i) {
 void ImprimeBombas(int v[MAX][MAX], char w[MAX][MAX]){
 		for(int i=1; i<=10; i++){
 			for(int j=1; j<=10; j++){
-				if(v[i][j]==9){
+				if(v[i][j]==9 && w[i][j]=='M') {
+					w[i][j];
+				}
+				else if(v[i][j]==9){
 					w[i][j]='*';
 				}
 				else {
@@ -165,7 +169,7 @@ int main (){
                     break;
                 case 'M':
                     mina[x][y]='M';
-                    /* Esse contador ta dando super errado
+                    /* ESSE CONTADOR TA DANDO SUPER ERRADO
 					contM--;*/
                     break;
                 case 'T':
@@ -173,8 +177,8 @@ int main (){
                     break;
                 case 'L':
                     mina[x][y]='.';
-                    /* Ta dando errado em todo canto
-					contM--;*/
+                    /* TA DANDO ERRADO EM TODO CANTO
+					contM++;*/
                     break;
                 case 'S':
                     aux=1;
