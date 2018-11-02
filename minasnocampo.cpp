@@ -17,9 +17,7 @@ void imprimir (char v[MAX][MAX]) {
 //funcao para usar letras maiusculas ou minusculas
 void letras (char &c) {
     if (96<c && c<123) {
-        for(int i=0; i<256; i++) {
             c-=32;
-        }
     }
 }
 
@@ -42,14 +40,17 @@ char inTChar(int i) {
 void ImprimeBombas(char v[MAX][MAX], char w[MAX][MAX]){
 		for(int i=1; i<=8; i++){
 			for(int j=1; j<=8; j++){
-				if(v[i][j]=='*' && w[i][j]=='M') {
+				if(v[i][j] == '*' && w[i][j] == 'M') {
 					w[i][j];
 				}
-				else if(v[i][j]=='*'){
-					w[i][j]='*';
+				else if(v[i][j] == '*'){
+					w[i][j] = '*';
+				}
+				else if(v[i][j] != '*' && w[i][j] == 'M') {
+					w[i][j] = 'X';
 				}
 				else {
-					w[i][j]=v[i][j];
+					w[i][j] = v[i][j];
 				}
 			}
 		}
@@ -66,7 +67,7 @@ int main (){
 
     for (int i=1; i<=8; i++){
         for (int j=1; j<=8; j++){
-            mina[i][j]='.';
+            mina[i][j] = '.';
         }
     }
 
@@ -77,7 +78,7 @@ int main (){
         l=1+rand()%8;
         c=1+rand()%8;
         if (minabomba[l][c] != '*') {
-            minabomba[l][c]= '*';
+            minabomba[l][c] = '*';
             contBomba++;
         }
     }
@@ -113,7 +114,7 @@ int main (){
 
 			//colocando numero de bombas dentro da celula
 			if (minabomba[i][j] != '*') {
-                minabomba[i][j]=inTChar(contNum);
+                minabomba[i][j] = inTChar(contNum);
             }
         }
     }
@@ -159,19 +160,19 @@ int main (){
 					}
                     break;
                 case 'M':
-                    mina[x][y]='M';
+                    mina[x][y] = 'M';
 					contM--;
                     break;
                 case 'T':
-                    mina[x][y]='?';
+                    mina[x][y] = '?';
                     break;
                 case 'L':
                     if(mina[x][y] == 'M'){
-						mina[x][y]='.';
+						mina[x][y] = '.';
 						contM++;
 					}
 					if(mina[x][y] == '?'){
-						mina[x][y]='.';
+						mina[x][y] = '.';
 					}
                     break;
                 case 'S':
