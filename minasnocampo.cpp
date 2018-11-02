@@ -118,9 +118,9 @@ int main (){
         }
     }
 
-    //imprimir(minabomba);
+    imprimir(minabomba);
 
-    //cout<<"\n"<<"\n"<<endl;
+    cout<<"\n"<<"\n"<<endl;
 
     while(aux!=1){
 
@@ -166,8 +166,13 @@ int main (){
                     mina[x][y]='?';
                     break;
                 case 'L':
-                    mina[x][y]='.';
-					contM++;
+                    if(mina[x][y] == 'M'){
+						mina[x][y]='.';
+						contM++;
+					}
+					if(mina[x][y] == '?'){
+						mina[x][y]='.';
+					}
                     break;
                 case 'S':
                     aux=1;
