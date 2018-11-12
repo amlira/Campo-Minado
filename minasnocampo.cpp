@@ -302,9 +302,9 @@ int main (){
 	
 	BombasVizinhas(minabomba);
 	
-    imprimir(minabomba);
+    //imprimir(minabomba);
 
-    cout<<"\n"<<"\n"<<endl;
+    //cout<<"\n"<<"\n"<<endl;
     
     time (&rawtime);
 	timeinfo = localtime (&rawtime);
