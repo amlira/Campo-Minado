@@ -201,7 +201,7 @@ void analisarAcima (char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
 void analisarAbaixo (char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
 		if(i+1 < 8) {
 
-                if (v[i+1][j-1] == '_' && w[i+1][j-1] != v[i+1][j-1] && j>=1) {
+           if (v[i+1][j-1] == '_' && w[i+1][j-1] != v[i+1][j-1] && j>=1) {
 				w[i+1][j-1] = v[i+1][j-1];
                 cout<<"oi"<<endl;
                 descobrirNulos(v, w, (i+1), (j-1));
@@ -216,7 +216,6 @@ void analisarAbaixo (char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
 				w[i+1][j-1] = v[i+1][j-1];
                 cout<<"oi"<<endl;
                 descobrirNulos(v, w, (i+1), (j-1));
-
 			}*/
 			if (v[i+1][j+1] == '_' && w[i+1][j+1] != v[i+1][j+1] && j<7) {
 				w[i+1][j+1] = v[i+1][j+1];
@@ -231,15 +230,29 @@ void analisarAbaixo (char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
 }
 
 void descobrirNulos(char v[MAX][MAX], char w[MAX][MAX], int i, int j){
-
-		analisarAcima(v, w, i, j);
-
-		analisarAbaixo(v, w, i, j);
-
-		analisarDireita(v, w, i, j);
-
-        analisarEsquerda(v, w, i, j);
-
+	
+		/*if (v[i][j]=='*'){
+			para o jogo
+		}
+		else if (v[i][j]=='*' && v[i][j]=='_'){
+			w[i][j]=v[i][j];
+		}
+		else {
+			w[i][j]=v[i][j];
+		
+		descobrirNulos(v, w, i , j);
+		descobrirNulos(v, w, i , j);
+		descobrirNulos(v, w, i , j);
+		descobrirNulos(v, w, i , j);
+		descobrirNulos(v, w, i , j);
+		descobrirNulos(v, w, i , j);
+		descobrirNulos(v, w, i , j);
+		descobrirNulos(v, w, i , j);
+		}
+		obs n precisa mais das analises
+		se n funcionar volta para a chamada das funcoes de analise
+		*/
+		
 }
 
 
