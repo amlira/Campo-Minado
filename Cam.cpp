@@ -14,7 +14,7 @@ void descobrirNulos(char v[MAX][MAX], char w[MAX][MAX], int i, int j);
 //funcao para imprimir array de string
 void imprimir (char v[MAX][MAX]) {
     for (int i=0; i<8; i++){
-        cout<<i<<' ';
+        cout<<i+1<<' ';
         for (int j=0; j<8; j++){
             cout<<v[i][j]<<' ';
         }
@@ -58,7 +58,7 @@ void GeraBombas (char minabomba[MAX][MAX]){
     }
 }
 
-    //verificar se ha bombas nas celulas vizinhas e contar quantas há por perto
+    //verificar se ha bombas nas celulas vizinhas e contar quantas hÃ¡ por perto
 void BombasVizinhas (char minabomba[MAX][MAX]){
 		int contNum=0;
 		for (int i=0; i<8; i++){
@@ -141,7 +141,7 @@ int converterSegundos(int hora, int minuto, int segundo) {
 }
 
 
-//Análise
+//AnÃ¡lise
 void analisarDireita (char v[MAX][MAX], char w[MAX][MAX], int i, int j){
 		if(j+1 < 8) {
 			if (v[i][j+1] == '_' && w[i][j+1] != v[i][j+1]) {
@@ -149,7 +149,7 @@ void analisarDireita (char v[MAX][MAX], char w[MAX][MAX], int i, int j){
 
 				descobrirNulos(v, w, i, (j+1));
 			}
-			else if ( v[i][j+1] != '_' && w[i][j+1] != v[i][j+1] ){
+			else if (v[i][j+1] != '*' && v[i][j+1] != '_' && w[i][j+1] != v[i][j+1] ){
 				w[i][j+1] = v[i][j+1];
 				/*analisarAbaixo(v, w, i, (j+1));
 				analisarAcima(v, w, i, (j+1));*/
@@ -159,15 +159,14 @@ void analisarDireita (char v[MAX][MAX], char w[MAX][MAX], int i, int j){
 
 void analisarEsquerda (char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
 		if(j-1 >= 0) {
-			if (v[i][j-1] == '_' && w[i][j-1] != v[i][j-1] && j >= 1) {
+			if (v[i][j-1] == '_' && w[i][j-1] != v[i][j-1]) {
 				w[i][j-1] = v[i][j-1];
 
 				descobrirNulos(v, w, i, (j-1));
 
-			} else if (v[i][j-1] != '_' && w[i][j-1] != v[i][j-1]){
+			} else if (v[i][j-1] != '*' && v[i][j-1] != '_' && w[i][j-1] != v[i][j-1]){
 				w[i][j-1] = v[i][j-1];
-				/*analisarAbaixo(v, w, i, (j-1));
-				analisarAcima(v, w, i, (j-1));*/
+
 
 			}
 		}
@@ -175,66 +174,66 @@ void analisarEsquerda (char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
 
 void analisarAcima (char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
 		if(i-1 >= 0) {
-			if (v[i-1][j] == '_' && w[i-1][j] != v[i-1][j] && i > 0) {
+			if (v[i-1][j] == '_' && w[i-1][j] != v[i-1][j]) {
 				w[i-1][j] = v[i-1][j];
 
                 descobrirNulos(v, w, (i-1), j);
 
 			}
-			if (v[i-1][j-1] == '_' && w[i-1][j-1] != v[i-1][j-1] && i > 0) {
+			if (v[i-1][j-1] == '_' && w[i-1][j-1] != v[i-1][j-1]) {
 				w[i-1][j-1] = v[i-1][j-1];
 
-                descobrirNulos(v, w, (i-1), j);
+                descobrirNulos(v, w, (i-1), (j-1));
 
 			}
-			if (v[i-1][j+1] == '_' && w[i-1][j+1] != v[i-1][j+1] && i > 0) {
+			if (v[i-1][j+1] == '_' && w[i-1][j+1] != v[i-1][j+1]) {
+
 				w[i-1][j+1] = v[i-1][j+1];
 
-                descobrirNulos(v, w, (i-1), j);
+                descobrirNulos(v, w, (i-1), (j+1));
 
 			} else if(v[i-1][j] != '_' && w[i-1][j] != v[i-1][j]){
 				w[i-1][j] = v[i-1][j];
-				//analisarDireita(v, w, (i-1), j);
-				//analisarEsquerda(v, w, (i-1), j);
 			}
 		}
 }
 
 void analisarAbaixo (char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
 		if(i+1 < 8) {
+
+                if (v[i+1][j-1] == '_' && w[i+1][j-1] != v[i+1][j-1] && j>=1) {
+				w[i+1][j-1] = v[i+1][j-1];
+                cout<<"oi"<<endl;
+                descobrirNulos(v, w, (i+1), (j-1));
+
+			}
 			if (v[i+1][j] == '_' && w[i+1][j] != v[i+1][j]) {
 				w[i+1][j] = v[i+1][j];
-
                 descobrirNulos(v, w, (i+1), j);
 
 			}
-			if (v[i+1][j-1] == '_' && w[i+1][j-1] != v[i+1][j-1]) {
+			/*if (v[i+1][j-1] == '_' && w[i+1][j-1] != v[i+1][j-1] && j>=1) {
 				w[i+1][j-1] = v[i+1][j-1];
+                cout<<"oi"<<endl;
+                descobrirNulos(v, w, (i+1), (j-1));
 
-                descobrirNulos(v, w, (i+1), j);
-
-			}
-			if (v[i+1][j+1] == '_' && w[i+1][j+1] != v[i+1][j+1]) {
+			}*/
+			if (v[i+1][j+1] == '_' && w[i+1][j+1] != v[i+1][j+1] && j<7) {
 				w[i+1][j+1] = v[i+1][j+1];
 
-                descobrirNulos(v, w, (i+1), j);
+                descobrirNulos(v, w, (i+1), (j+1));
 
 			}
 			else if(v[i+1][j] != '_' && w[i+1][j] != v[i+1][j]) {
 				w[i+1][j] = v[i+1][j];
-				//analisarDireita(v, w, (i+1), j);
-				//analisarEsquerda(v, w, (i+1), j);
 			}
 		}
 }
 
 void descobrirNulos(char v[MAX][MAX], char w[MAX][MAX], int i, int j){
 
-
-		//analisar acima
 		analisarAcima(v, w, i, j);
 
-		//analisar abaixo
 		analisarAbaixo(v, w, i, j);
 
 		analisarDireita(v, w, i, j);
