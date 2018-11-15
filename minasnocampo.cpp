@@ -15,7 +15,7 @@ void GeraBombas (char minabomba[MAX][MAX]);
 void BombasVizinhas (char minabomba[MAX][MAX]);
 void ImprimeBombas(char v[MAX][MAX], char w[MAX][MAX]);
 int converterSegundos(int hora, int minuto, int segundo);
-void descobrirNulos(char v[MAX][MAX], char w[MAX][MAX], int i, int j);
+void descobrir(char v[MAX][MAX], char w[MAX][MAX], int i, int j);
 void Duracao();
 void converterSegundosinit(int hora, int minuto, int segundo);
 
@@ -29,6 +29,7 @@ void imprimir (char v[MAX][MAX]) {
         cout<<endl;
     }
 }
+
 //FUNÇÃO PARA USAR LETRAS MAIUSCULAS OU MINUSCULAS
 void letras (char &c) {
     if (96<c && c<123) {
@@ -38,16 +39,16 @@ void letras (char &c) {
 
 //FUNÇÃO PARA TRANSFORMAR INT EM CHAR
 char inTChar(int i) {
-    switch (i) {
-           case 0: return '_';
-           case 1: return '1';
-           case 2: return '2';
-           case 3: return '3';
-           case 4: return '4';
-           case 5: return '5';
-           case 6: return '6';
-           case 7: return '7';
-           case 8: return '8';
+	switch (i) {
+       case 0: return '_';
+       case 1: return '1';
+       case 2: return '2';
+       case 3: return '3';
+       case 4: return '4';
+       case 5: return '5';
+       case 6: return '6';
+       case 7: return '7';
+       case 8: return '8';
     }
 }
 
@@ -59,7 +60,7 @@ void GeraBombas (char minabomba[MAX][MAX]) {
         l=1+rand()%8;
         c=1+rand()%8;
         if (minabomba[l][c] != '*') {
-             minabomba[l][c]= '*';
+            minabomba[l][c]= '*';
             contBomba++;
         }
     }
@@ -147,48 +148,45 @@ int converterSegundos(int hora, int minuto, int segundo) {
 }
 
 //FUNÇÃO COM O COMANDO DE DESCOBRIR UMA CELULA
-void descobrirNulos(char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
-	
-		if (v[i][j] == '*' && w[i][j] != v[i][j]){
-        	ImprimeBombas(v, w);
-        	exit(0);
-		}
-		else if (v[i][j] != '*' && v[i][j] != '_' && w[i][j] != v[i][j]){
-			w[i][j] = v[i][j];
-		}
-		else if (v[i][j] == '_' && w[i][j] != v[i][j]){
-			w[i][j] = v[i][j];
+void descobrir(char v[MAX][MAX], char w[MAX][MAX], int i, int j) {
+	if (v[i][j] == '*' && w[i][j] != v[i][j]){
+    	ImprimeBombas(v, w);
+    	exit(0);
+	}
+	else if (v[i][j] != '*' && v[i][j] != '_' && w[i][j] != v[i][j]){
+		w[i][j] = v[i][j];
+	}
+	else if (v[i][j] == '_' && w[i][j] != v[i][j]){
+		w[i][j] = v[i][j];
+		
+		if ((i-1) >= 0) {
+			if ((j-1) >=0){
+				descobrir(v, w, i-1, j-1);
+			}
 			
-			if ((i-1) >= 0) {
-				if ((j-1) >=0){
-					descobrirNulos(v, w, i-1, j-1);
-				}
-				
-				descobrirNulos(v, w, i-1, j);
-				
-				if ((j+1) <=7) {
-					descobrirNulos(v, w, i-1, j+1);
-				}
-			}
-			if ((i+1) <=7 ) {
-				if ((j-1) >= 0) {
-					descobrirNulos(v, w, i+1, j-1);
-				}
-				descobrirNulos(v, w, i+1, j);
-				if ((j+1) <= 7) {
-					descobrirNulos(v, w, i+1, j+1);
-				}
-			}
-			if ((j-1) >= 0) {
-				descobrirNulos(v, w, i, j-1);
-				
-			}
-			if ((j+1) <= 7) {
-				descobrirNulos(v, w, i, j+1);
+			descobrir(v, w, i-1, j);
+			
+			if ((j+1) <=7) {
+				descobrir(v, w, i-1, j+1);
 			}
 		}
-		/*obs n precisa mais das analises
-		se n funcionar volta para a chamada das funcoes de analise*/
+		if ((i+1) <=7 ) {
+			if ((j-1) >= 0) {
+				descobrir(v, w, i+1, j-1);
+			}
+			descobrir(v, w, i+1, j);
+			if ((j+1) <= 7) {
+				descobrir(v, w, i+1, j+1);
+			}
+		}
+		if ((j-1) >= 0) {
+			descobrir(v, w, i, j-1);
+			
+		}
+		if ((j+1) <= 7) {
+			descobrir(v, w, i, j+1);
+		}
+	}
 }
 
  void Duracao() {
@@ -227,74 +225,85 @@ void converterSegundosinit(int hora, int minuto, int segundo) {
 }
 
 int main (){
-    char mina[MAX][MAX], comando;
-	char minabomba[MAX][MAX];
+    char mina[MAX][MAX], minabomba[MAX][MAX], comando;
     int x, y, aux=0;
-     time_t rawtime;
+    
+    time_t rawtime;
 	struct tm * timeinfo;
-	int hora, minuto, segundo;
-     int contM=10;
-     for (int i=0; i<8; i++){
+	
+	int hora, minuto, segundo, contM=10;
+    for (int i=0; i<8; i++){
         for (int j=0; j<8; j++){
             mina[i][j] = '.';
         }
     }
-     srand(time(NULL));
- 	GeraBombas(minabomba);
- 	BombasVizinhas(minabomba);
-     imprimir(minabomba);
-     cout<<"\n"<<"\n"<<endl;
-     time (&rawtime);
+    
+    srand(time(NULL));
+	GeraBombas(minabomba);
+	BombasVizinhas(minabomba);
+	
+	imprimir(minabomba);
+	cout<<"\n"<<"\n"<<endl;
+	
+	time (&rawtime);
 	timeinfo = localtime (&rawtime);
- 	hora = timeinfo->tm_hour;
+	hora = timeinfo->tm_hour;
 	minuto = timeinfo->tm_min;
 	segundo = timeinfo->tm_sec;
- 	converterSegundosinit(hora, minuto, segundo);
-     while(aux!=1){
- 		Duracao();
+	converterSegundosinit(hora, minuto, segundo);
+	
+	while(aux!=1) {
+		Duracao();
+		
 		cout<<endl;
         imprimir(mina);
-         cout<<"\n"<<"\n"<<endl;
-         cout<<"Minas a marcar: "<<contM<<endl;
-        cout<<"D - - - > Descobrir o quadrado (colocar as coordenadas)"<<endl;
-        cout<<"M - - - > Marcar mina"<<endl;
-        cout<<"T - - - > Talvez mina"<<endl;
-        cout<<"L - - - > Limpar marcacao"<<endl;
-        cout<<"S - - - > Sair do jogo"<<endl;
-         cout<<endl;
-         cout<<"Insira o comando: ";
-        cin>>comando;
+        
+		cout<<"\n"<<"\n"<<endl;
+		cout<<"Minas a marcar: "<<contM<<endl;
+		cout<<"D - - - > Descobrir o quadrado (colocar as coordenadas)"<<endl;
+		cout<<"M - - - > Marcar mina"<<endl;
+		cout<<"T - - - > Talvez mina"<<endl;
+		cout<<"L - - - > Limpar marcacao"<<endl;
+		cout<<"S - - - > Sair do jogo"<<endl;
+		cout<<endl;
+		
+		cout<<"Insira o comando: ";
+		cin>>comando;
+		
         letras(comando);
-         if (comando!='S'){
+        if (comando!='S'){
             cout<<"Insira as coordenadas: ";
             cin>>x>>y;
         }
         cout<<"\n"<<"\n"<<endl;
+        
         x=x-1;
         y=y-1;
+        
         switch (comando){
-                case 'D':
-                	descobrirNulos(minabomba, mina, x, y);
-                    break;
-                 case 'M':
-                    mina[x][y] = 'M';
-					contM--;
-                    break;
-                case 'T':
-                    mina[x][y] = '?';
-                    break;
-                case 'L':
-                    if(mina[x][y] == 'M'){
-						mina[x][y] = '.';
-						contM++;
-					}
-					if(mina[x][y] == '?'){
-						mina[x][y] = '.';
-					}
-                    break;
-                case 'S':
-                    aux=1;
-                }
+            case 'D':
+            	descobrir(minabomba, mina, x, y);
+                break;
+            case 'M':
+                mina[x][y] = 'M';
+				contM--;
+                break;
+            case 'T':
+                mina[x][y] = '?';
+                break;
+            case 'L':
+                if(mina[x][y] == 'M'){
+					mina[x][y] = '.';
+					contM++;
+				}
+				if(mina[x][y] == '?'){
+					mina[x][y] = '.';
+				}
+                break;
+            case 'S':
+                aux=1;
             }
-     return 0;
+    }
+    
+	return 0;
 }
