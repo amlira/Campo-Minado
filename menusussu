@@ -22,6 +22,7 @@ cout<<"                                              ESCOLHA UM DOS NIVEIS E DIV
 cout<<"                                                        1. Nivel facil             "<<endl;
 cout<<"                                                        2. Nivel intermediario     "<<endl;
 cout<<"                                                        3. Nivel personalizado     "<<endl;
+cout<<"                                                        4. Voltar                  "<<endl;
 }
 //FUNCAO PARA IMPRIMIR ARRAY
 void imprimir (char v[MAX][MAX], int n, int m) {
@@ -466,6 +467,9 @@ int main (){
             }
         }
         break;
+	case '4':
+	menu(op);
+	break;
         }
         }
      else if (op=='3'){
