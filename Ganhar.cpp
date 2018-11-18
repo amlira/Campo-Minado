@@ -24,7 +24,7 @@ cout<<"                                                        2. Nivel intermed
 cout<<"                                                        3. Nivel personalizado     "<<endl;
 cout<<"                                                        4. Voltar                  "<<endl;
 }
-//FUNÇÃO PARA IMPRIMIR ARRAY
+//FUNÃ‡ÃƒO PARA IMPRIMIR ARRAY
 void imprimir (char v[MAX][MAX], int n, int m) {
     for (int i=0; i<n; i++){
         if(i+1 < 10) {
@@ -39,14 +39,14 @@ void imprimir (char v[MAX][MAX], int n, int m) {
     }
 }
 
-//FUNÇÃO PARA USAR LETRAS MAIUSCULAS OU MINUSCULAS
+//FUNÃ‡ÃƒO PARA USAR LETRAS MAIUSCULAS OU MINUSCULAS
 void letras (char &c) {
     if (96<c && c<123) {
         c-=32;
     }
 }
 
-//FUNÇÃO PARA TRANSFORMAR INT EM CHAR
+//FUNÃ‡ÃƒO PARA TRANSFORMAR INT EM CHAR
 char inTChar(int i) {
 	switch (i) {
        case 0: return '_';
@@ -62,7 +62,7 @@ char inTChar(int i) {
 }
 
 
-//FUNÇÃO PARA COLOCAR BOMBAS ALEATORIAMENTE NA MATRIZ
+//FUNÃ‡ÃƒO PARA COLOCAR BOMBAS ALEATORIAMENTE NA MATRIZ
 void GeraBombas (char v[MAX][MAX], int lin, int col, int numB) {
 	srand(time(NULL));
 	int c, l;
@@ -75,14 +75,14 @@ void GeraBombas (char v[MAX][MAX], int lin, int col, int numB) {
             contBomba++;
         }
     }
-    
-    //tirar essa parte, só teste de codigo
+
+    //tirar essa parte, sÃ³ teste de codigo
     cout<<endl;
     imprimir(v, lin, col);
     cout<<"\n"<<endl;
 }
 
-//FUNÇÃO PARA VERIFICAR QUANTIDADE DE BOMBAS NAS CELULAS VIZINHAS
+//FUNÃ‡ÃƒO PARA VERIFICAR QUANTIDADE DE BOMBAS NAS CELULAS VIZINHAS
 void BombasVizinhas (char minabomba[MAX][MAX], int n, int m) {
 	int contNum=0;
 	for (int i=0; i<n; i++){
@@ -136,7 +136,7 @@ void BombasVizinhas (char minabomba[MAX][MAX], int n, int m) {
 	}
 }
 
-//FUNÇÃO PARA IMPRIMIR BOMBAS QUANDO PERDE O JOGO
+//FUNÃ‡ÃƒO PARA IMPRIMIR BOMBAS QUANDO PERDE O JOGO
 void ImprimeBombas(char v[MAX][MAX], char w[MAX][MAX], int n, int m){
 	for(int i=0; i<n; i++){
 		for(int j=0; j<m; j++){
@@ -169,7 +169,7 @@ int converterSegundos(int hora, int minuto, int segundo) {
 	return (segundo + 60*minuto+3600*hora);
 }
 
-//FUNÇÃO COM O COMANDO DE DESCOBRIR UMA CELULA
+//FUNÃ‡ÃƒO COM O COMANDO DE DESCOBRIR UMA CELULA
 void descobrir(char v[MAX][MAX], char w[MAX][MAX], int i, int j, int n, int m, int& cont) {
 	if (v[i][j] == '*' && w[i][j] != v[i][j]){
     	ImprimeBombas(v, w, n, m);
@@ -260,7 +260,7 @@ int main (){
     menu (op);
     cin>>op;
     cout<<"\n"<<endl;
-    
+
     if (op =='1'){
 	    menu2(op2);
 	    cin>>op2;
@@ -268,33 +268,33 @@ int main (){
 	    switch (op2){
 	        case '1':
 	            n=m=8;
-	            numb = 10; 
-	            
+	            numb = 10;
+
 	            for (int i=0; i<n; i++){
 		            for (int j=0; j<m; j++){
 		                mina[i][j] = '.';
 		            }
 	            }
-	            
+
 	            srand(time(NULL));
 	            GeraBombas(minabomba, n, m, numb);
 	            BombasVizinhas(minabomba, n, m);
 	            imprimir(minabomba, n, m);
 	            cout<<"\n"<<endl;
-	
+
 	            time (&rawtime);
 	            timeinfo = localtime (&rawtime);
 	            hora = timeinfo->tm_hour;
 	            minuto = timeinfo->tm_min;
 	            segundo = timeinfo->tm_sec;
 	            converterSegundosinit(hora, minuto, segundo);
-		
+
 			    while(aux!=1) {
 					Duracao();
-			
+
 					cout<<endl;
 			        imprimir(mina, n, m);
-			
+
 					cout<<"\n"<<"\n"<<endl;
 					cout<<"Minas a marcar: "<<contM<<endl;
 					cout<<"D - - - > Descobrir o quadrado (colocar as coordenadas)"<<endl;
@@ -303,20 +303,20 @@ int main (){
 					cout<<"L - - - > Limpar marcacao"<<endl;
 					cout<<"S - - - > Sair do jogo"<<endl;
 					cout<<endl;
-			
+
 					cout<<"Insira o comando: ";
 					cin>>comando;
-			
+
 			        letras(comando);
 			        if (comando!='S'){
 			            cout<<"Insira as coordenadas: ";
 			            cin>>x>>y;
 			        }
 			        cout<<"\n"<<"\n"<<endl;
-			
+
 			        x=x-1;
 			        y=y-1;
-			
+
 			        switch (comando){
 			            case 'D':
 			            	descobrir(minabomba, mina, x, y, n, m, aux2);
@@ -340,9 +340,9 @@ int main (){
 			            case 'S':
 			                aux=1;
 			        }
-			            
+
 			        aux3 = (((n*m)-aux2)-numb); //equacao geral
-					
+
 					if (aux3 == 0) {
 						cout<<" _____________________________"<<endl;
 						cout<<"|                             |"<<endl;
@@ -351,38 +351,37 @@ int main (){
 						aux = 1;
 					}
 			    }
-	//acho que n tem isso    }
-		    break; // case1
-	    
+            break; // case1
+
 	        case '2':
 	            n=m=16;
 	            numb = 40;
-	            
+
 	            for (int i=0; i<n; i++){
 		            for (int j=0; j<m; j++){
 		                mina[i][j] = '.';
 		            }
 	            }
-	            
+
 	            srand(time(NULL));
 	            GeraBombas(minabomba, n, m, numb);
 	            BombasVizinhas(minabomba, n, m);
 	            imprimir(minabomba, n, m);
 	            cout<<"\n"<<"\n"<<endl;
-	
+
 	            time (&rawtime);
 	            timeinfo = localtime (&rawtime);
 	            hora = timeinfo->tm_hour;
 	            minuto = timeinfo->tm_min;
 	            segundo = timeinfo->tm_sec;
 	            converterSegundosinit(hora, minuto, segundo);
-	
+
 				while(aux!=1) {
 					Duracao();
-			
+
 					cout<<endl;
 			        imprimir(mina, n, m);
-			
+
 					cout<<"\n"<<"\n"<<endl;
 					cout<<"Minas a marcar: "<<contM<<endl;
 					cout<<"D - - - > Descobrir o quadrado (colocar as coordenadas)"<<endl;
@@ -391,20 +390,20 @@ int main (){
 					cout<<"L - - - > Limpar marcacao"<<endl;
 					cout<<"S - - - > Sair do jogo"<<endl;
 					cout<<endl;
-			
+
 					cout<<"Insira o comando: ";
 					cin>>comando;
-			
+
 			        letras(comando);
 			        if (comando!='S'){
 			            cout<<"Insira as coordenadas: ";
 			            cin>>x>>y;
 			        }
 			        cout<<"\n"<<"\n"<<endl;
-			
+
 			        x=x-1;
 			        y=y-1;
-			
+
 			        switch (comando){
 			            case 'D':
 			            	descobrir(minabomba, mina, x, y, n, m, aux2);
@@ -428,9 +427,9 @@ int main (){
 			            case 'S':
 			                aux=1;
 			        }
-			            
+
 			        aux3 = (((n*m)-aux2)-numb); //equacao geral
-					
+
 					if (aux3 == 0) {
 						cout<<" _____________________________"<<endl;
 						cout<<"|                             |"<<endl;
@@ -441,45 +440,45 @@ int main (){
 					}
 		    	}
 			break; //case2
-			
+
 	        case '3':
-	            cout<<"Insira o tamanho da linha e da coluna: ";
+	            cout<<"Insira o tamanho da linha e da coluna (sendo o maximo 40 para ambos): ";
 	            int a1, a2, a3;
-	            
+
 	            do {
 	            	cin>>a1;
 				} while(a1 >= 40);
 				n=a1;
-				
+
 	            do {
 	            	cin>>a2;
 				} while(a2 >= 40);
 	            m=a2;
-	            
+
 	            cout<<"Insira o numero de bombas: ";
 	            do {
 	            	cin>>a3;
-				} while(a3 >= (n*m)-10);
+				} while(a3 > ((n*m)-10));
 	            numb = a3;
-	            
+
 	            for (int i=0; i<n; i++){
 		            for (int j=0; j<m; j++){
 		                mina[i][j] = '.';
 		            }
 	            }
-	            
+
 	            srand(time(NULL));
 	            GeraBombas(minabomba, n, m, numb);
 	            BombasVizinhas(minabomba, n, m);
 	            imprimir(minabomba, n, m);
 	            cout<<"\n"<<"\n"<<endl;
-	
+
 		        while(aux!=1) {
 					Duracao();
-			
+
 					cout<<endl;
 			        imprimir(mina, n, m);
-			
+
 					cout<<"\n"<<"\n"<<endl;
 					cout<<"Minas a marcar: "<<contM<<endl;
 					cout<<"D - - - > Descobrir o quadrado (colocar as coordenadas)"<<endl;
@@ -488,20 +487,20 @@ int main (){
 					cout<<"L - - - > Limpar marcacao"<<endl;
 					cout<<"S - - - > Sair do jogo"<<endl;
 					cout<<endl;
-			
+
 					cout<<"Insira o comando: ";
 					cin>>comando;
-			
+
 			        letras(comando);
 			        if (comando!='S'){
 			            cout<<"Insira as coordenadas: ";
 			            cin>>x>>y;
 			        }
 			        cout<<"\n"<<"\n"<<endl;
-			
+
 			        x=x-1;
 			        y=y-1;
-			
+
 			        switch (comando){
 			            case 'D':
 			            	descobrir(minabomba, mina, x, y, n, m, aux2);
@@ -525,9 +524,9 @@ int main (){
 			            case 'S':
 			                aux=1;
 			        }
-			            
+
 			        aux3 = (((n*m)-aux2)-numb); //equacao geral
-					
+
 					if (aux3 == 0) {
 						cout<<" _____________________________"<<endl;
 						cout<<"|                             |"<<endl;
@@ -537,13 +536,16 @@ int main (){
 					}
 				}
 	        break; //case3
-	        
+
 			case '4':
 				menu(op);
 			break;
 		} //fim do switch
     } //fim do if
-	else if (op=='3'){	
+    /*else if (op=='2'){
+
+    }*/
+	else if (op=='3'){
 	    exit(1);
 	}
      return 0;
